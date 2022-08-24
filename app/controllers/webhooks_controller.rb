@@ -15,6 +15,7 @@ class WebhooksController < ApplicationController
 
   # POST /candidates
   def create
+    phone_number_to = message = params[:webhook][:entry][0][:changes][0][:value][:messages][0][:from]
     message = params[:webhook][:entry][0][:changes][0][:value][:messages][0][:text][:body]
     
     if message  == "1"
