@@ -11,4 +11,9 @@ class WebhooksController < ApplicationController
       render json: "Internal_server_error", status: :internal_server_error
     end
   end
+
+  # POST /candidates
+  def create
+    puts params
+  end
 end
