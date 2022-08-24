@@ -15,7 +15,7 @@ class WebhooksController < ApplicationController
 
   # POST /candidates
   def create
-    # phone_number_to = message = params[:webhook][:entry][0][:changes][0][:value][:messages][0][:from]
+    phone_number_to = message = params[:webhook][:entry][0][:changes][0][:value][:messages][0][:from]
     message = params[:webhook][:entry][0][:changes][0][:value][:messages][0][:text][:body]
     
     if message  == "1"
@@ -30,7 +30,7 @@ class WebhooksController < ApplicationController
 
     body = { 
       "messaging_product" => "whatsapp",
-      "to" => "54111564281721",
+      "to" => phone_number_to,
       "type" => "template",
       "template" => {
         "name" => "response_option",
@@ -59,6 +59,8 @@ class WebhooksController < ApplicationController
         ]
       }
     }
+
+    send_whatsapp_message(body)
   end
 
   def initial_message
