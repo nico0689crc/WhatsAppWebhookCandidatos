@@ -15,7 +15,7 @@ class WebhooksController < ApplicationController
 
   # POST /candidates
   def create
-    puts params[:webhook]
+    puts params[:webhook][:entry][:changes][:value][:messages][:text][:body]
   end
 
   def initial_message
