@@ -15,7 +15,49 @@ class WebhooksController < ApplicationController
 
   # POST /candidates
   def create
-    puts params[:webhook][:entry][0][:changes][0][:value][:messages][0][:text][:body]
+    message = params[:webhook][:entry][0][:changes][0][:value][:messages][0][:text][:body]
+    
+    if message  == "1"
+      message_text = "Option 1"
+    elsif message  == "2"
+      message_text = "Option 2"
+    elsif message  == "3"
+      message_text = "Option 3"
+    else
+      message_text = "Option 4"
+    end 
+
+    body = { 
+      "messaging_product" => "whatsapp",
+      "to" => phone_number_to,
+      "type" => "template",
+      "template" => {
+        "name" => "response_option",
+        "language" => {
+          "code" => "en"
+        },
+        "components": [
+          {
+            "type": "header",
+            "parameters": [
+              {
+                "type": "text",
+                "text": "Carlos Saul Menem"
+              }
+            ]
+          },
+          {
+            "type": "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": message_text
+              }
+            ]
+          }
+        ]
+      }
+    }
   end
 
   def initial_message
