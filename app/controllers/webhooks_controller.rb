@@ -8,7 +8,7 @@ class WebhooksController < ApplicationController
     if hub_mode && hub_challenge && hub_verify_token && hub_verify_token == hub_verify_token_local
       render json: hub_challenge, status: :ok
     else
-      render status: :internal_server_error
+      render json: "Internal_server_error", status: :internal_server_error
     end
   end
 end
